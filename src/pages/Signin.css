@@ -35,7 +35,7 @@
   line-height: 1.5;
 }
 
-/* ── Mensagem de erro/sucesso ── */
+/* ── Mensagens ── */
 .msg {
   display: flex;
   align-items: flex-start;
@@ -103,23 +103,70 @@
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
 }
 
 .field input::placeholder {
   color: #7070a0;
 }
 
-.field-hint {
-  font-size: 11px;
-  color: var(--error);
-  margin-top: 5px;
+.field input[type="password"]::-ms-reveal,
+.field input[type="password"]::-ms-clear {
   display: none;
 }
 
-.field input.erro ~ .field-hint {
-  display: block;
+/* ── Wrapper exclusivo do campo senha do Signin ── */
+.signin-pass-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
+.signin-pass-wrapper input {
+  width: 100%;
+  background: #1a1a28;
+  border: 1px solid #2e2e48;
+  border-radius: 10px;
+  padding: 12px 44px 12px 15px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.signin-pass-wrapper input::placeholder {
+  color: #7070a0;
+}
+
+.signin-pass-wrapper input[type="password"]::-ms-reveal,
+.signin-pass-wrapper input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* ── Botão olho ── */
+.signin-toggle-pass {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #7070a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+  line-height: 0;
+}
+
+.signin-toggle-pass:hover {
+  color: var(--text);
+}
+
+/* ── Foco e erro — campo simples ── */
 @keyframes glowPulse {
   0%   { box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.15); }
   50%  { box-shadow: 0 0 0 7px rgba(124, 106, 247, 0.28); }
@@ -132,18 +179,37 @@
   100% { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
 }
 
-.field input:focus {
+.field input:focus,
+.signin-pass-wrapper input:focus {
   border-color: var(--accent);
   animation: glowPulse 1.5s ease-in-out infinite;
 }
 
-.field input.erro {
+.field input.erro,
+.signin-pass-wrapper input.erro {
   border-color: var(--error);
 }
 
-.field input.erro:focus {
+.field input.erro:focus,
+.signin-pass-wrapper input.erro:focus {
   border-color: var(--error);
   animation: errorPulse 1.5s ease-in-out infinite;
+}
+
+/* ── Field hint ── */
+.field-hint {
+  font-size: 11px;
+  color: var(--error);
+  margin-top: 5px;
+  display: none;
+}
+
+.field input.erro ~ .field-hint {
+  display: block;
+}
+
+.field:has(.signin-pass-wrapper input.erro) .field-hint {
+  display: block;
 }
 
 /* ── Botão principal ── */
@@ -174,9 +240,7 @@
   transition: opacity 0.35s ease;
 }
 
-.btn:hover::after {
-  opacity: 1;
-}
+.btn:hover::after { opacity: 1; }
 
 .btn:hover {
   box-shadow: 0 0 22px rgba(41, 121, 255, 0.4), 0 0 8px rgba(124, 106, 247, 0.35);
@@ -203,7 +267,7 @@
 
 .divider-text {
   font-size: 11px;
-  color: #cbc2c2;
+  color: #55556a;
   white-space: nowrap;
 }
 
@@ -240,15 +304,11 @@
   box-shadow: 0 0 12px rgba(124, 106, 247, 0.15);
 }
 
-.btn-register-link:hover::after {
-  opacity: 1;
-}
+.btn-register-link:hover::after { opacity: 1; }
 
 .btn-register-link span {
   position: relative;
   z-index: 1;
 }
 
-.qRegister {
-  display: none;
-}
+.qRegister { display: none; }
