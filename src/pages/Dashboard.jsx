@@ -7,17 +7,16 @@ function Dashboard() {
   const username = localStorage.getItem('username')
   const token    = localStorage.getItem('acessToken')
 
-  const [fullName, setFullName]           = useState('')
-  const [dropdownOpen, setDropdownOpen]   = useState(false)
-  const [manageOpen, setManageOpen]       = useState(false)
-  const [formFullname, setFormFullname]   = useState(false)
-  const [formPassword, setFormPassword]   = useState(false)
-  const [newFullname, setNewFullname]     = useState('')
-  const [newPassword, setNewPassword]     = useState('')
-  const [msg, setMsg]                     = useState('')
-  const [tipoMsg, setTipoMsg]             = useState('')
+  const [fullName, setFullName]         = useState('')
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [manageOpen, setManageOpen]     = useState(false)
+  const [formFullname, setFormFullname] = useState(false)
+  const [formPassword, setFormPassword] = useState(false)
+  const [newFullname, setNewFullname]   = useState('')
+  const [newPassword, setNewPassword]   = useState('')
+  const [msg, setMsg]                   = useState('')
+  const [tipoMsg, setTipoMsg]           = useState('')
 
-  // Proteção de rota
   useEffect(() => {
     if (!token) {
       navigate('/')
@@ -112,7 +111,10 @@ function Dashboard() {
       <nav className="navbar">
         <span className="nav-logo">Erudio API</span>
         <div className="nav-user">
-          <div className="user-menu" onClick={e => { e.stopPropagation(); setDropdownOpen(!dropdownOpen) }}>
+          <div
+            className="user-menu"
+            onClick={e => { e.stopPropagation(); setDropdownOpen(!dropdownOpen) }}
+          >
             <div className="user-trigger">
               <span id="nav-username">{fullName || username}</span>
               <span id="dropdown-icon">{dropdownOpen ? '▾' : '▸'}</span>
@@ -140,15 +142,21 @@ function Dashboard() {
               <div className="manage-card">
                 <h3>Nome completo</h3>
                 <p>Alterar seu nome de exibição</p>
-                <button className="btn-open" onClick={() => { setFormFullname(true); setFormPassword(false); setMsg('') }}>
-                  Alterar
+                <button
+                  className="btn-open"
+                  onClick={() => { setFormFullname(true); setFormPassword(false); setMsg('') }}
+                >
+                  <span>Alterar</span>
                 </button>
               </div>
               <div className="manage-card">
                 <h3>Senha</h3>
                 <p>Alterar sua senha de acesso</p>
-                <button className="btn-open" onClick={() => { setFormPassword(true); setFormFullname(false); setMsg('') }}>
-                  Alterar
+                <button
+                  className="btn-open"
+                  onClick={() => { setFormPassword(true); setFormFullname(false); setMsg('') }}
+                >
+                  <span>Alterar</span>
                 </button>
               </div>
             </div>
@@ -165,8 +173,15 @@ function Dashboard() {
                   />
                 </div>
                 <div className="form-actions">
-                  <button className="btn-cancel" onClick={() => { setFormFullname(false); setNewFullname('') }}>Cancelar</button>
-                  <button className="btn-save" onClick={salvarNome}>Salvar</button>
+                  <button
+                    className="btn-cancel"
+                    onClick={() => { setFormFullname(false); setNewFullname('') }}
+                  >
+                    <span>Cancelar</span>
+                  </button>
+                  <button className="btn-save" onClick={salvarNome}>
+                    <span>Salvar</span>
+                  </button>
                 </div>
               </div>
             )}
@@ -183,8 +198,15 @@ function Dashboard() {
                   />
                 </div>
                 <div className="form-actions">
-                  <button className="btn-cancel" onClick={() => { setFormPassword(false); setNewPassword('') }}>Cancelar</button>
-                  <button className="btn-save" onClick={salvarSenha}>Salvar</button>
+                  <button
+                    className="btn-cancel"
+                    onClick={() => { setFormPassword(false); setNewPassword('') }}
+                  >
+                    <span>Cancelar</span>
+                  </button>
+                  <button className="btn-save" onClick={salvarSenha}>
+                    <span>Salvar</span>
+                  </button>
                 </div>
               </div>
             )}

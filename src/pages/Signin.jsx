@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Signin.css'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function Signin() {
   const navigate = useNavigate()
 
@@ -39,7 +41,7 @@ function Signin() {
       return
     }
 
-    const response = await fetch('http://localhost:8080/auth/signin', {
+    const response = await fetch(`${API_URL}/auth/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: user, password: pass })
@@ -87,11 +89,12 @@ function Signin() {
           <input
             type="text"
             id="username"
-            placeholder="Username"
+            placeholder="Digite seu usuário"
             className={userErro ? 'erro' : ''}
             value={user}
             onChange={e => setUser(e.target.value)}
           />
+          <span className="field-hint">Preencha o usuário</span>
         </div>
 
         <div className="field">
@@ -104,13 +107,21 @@ function Signin() {
             value={pass}
             onChange={e => setPass(e.target.value)}
           />
+          <span className="field-hint">Preencha a senha</span>
         </div>
 
-        <button className="btn" onClick={handleLogin}>Sign in →</button>
+        <button className="btn" onClick={handleLogin}>
+          <span>Entrar →</span>
+        </button>
 
-        <h3 className="qRegister">Não tem uma conta? Crie uma aqui ↓</h3>
+        <div className="divider">
+          <div className="divider-line"></div>
+          <span className="divider-text">não tem uma conta?</span>
+          <div className="divider-line"></div>
+        </div>
+
         <button className="btn-register-link" onClick={() => navigate('/register')}>
-          Register
+          <span>Criar conta</span>
         </button>
 
       </div>

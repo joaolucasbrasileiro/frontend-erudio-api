@@ -6,85 +6,130 @@
 }
 
 .rContainer {
-  width: 600px;
+  width: 520px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 2.5rem;
-  animation: fadeUp 1s ease both;
+  border-radius: 22px;
+  padding: 2.8rem;
+  box-shadow: 0 0 0 1px rgba(124, 106, 247, 0.06), 0 12px 48px rgba(0, 0, 0, 0.6);
+  animation: fadeUp 0.6s ease both;
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 .rHeading {
-  font-size: 26px;
   font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 6px;
 }
 
 .rSubHeading {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--muted);
-  margin-bottom: 15px;
+  margin-bottom: 2rem;
+  line-height: 1.5;
 }
 
+/* ── Mensagem de erro/sucesso ── */
 .msg {
-  list-style: none;
-  margin: 0 auto 5px;
-  width: 70%;
-  padding: 5px;
-  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
   font-size: 13px;
-  text-align: center;
-}
-
-.msg.success {
-  background: rgba(74, 222, 128, 0.08);
-  border: 1px solid rgba(74, 222, 128, 0.25);
-  color: var(--success);
+  list-style: none;
+  margin-bottom: 1.3rem;
+  line-height: 1.4;
 }
 
 .msg.erro {
-  background: rgba(248, 113, 113, 0.08);
-  border: 1px solid rgba(248, 113, 113, 0.25);
+  background: rgba(248, 113, 113, 0.07);
+  border: 1px solid rgba(248, 113, 113, 0.22);
+  border-left: 3px solid var(--error);
   color: var(--error);
+  animation: shake 0.4s ease;
 }
 
+.msg.erro::before {
+  content: '⚠';
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.msg.success {
+  background: rgba(74, 222, 128, 0.07);
+  border: 1px solid rgba(74, 222, 128, 0.22);
+  border-left: 3px solid var(--success);
+  color: var(--success);
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-5px); }
+  40%     { transform: translateX(5px); }
+  60%     { transform: translateX(-3px); }
+  80%     { transform: translateX(3px); }
+}
+
+/* ── Campos ── */
 .field {
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.25rem;
 }
 
 .field label {
   display: block;
   font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 7px;
+  font-weight: 500;
+  color: var(--label);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
 }
 
 .field input {
   width: 100%;
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: #1a1a28;
+  border: 1px solid #2e2e48;
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 12px 15px;
   font-size: 14px;
   color: var(--text);
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
   font-family: 'Inter', sans-serif;
 }
 
 .field input::placeholder {
-  color: var(--muted);
+  color: #7070a0;
+}
+
+.field-hint {
+  font-size: 11px;
+  color: var(--error);
+  margin-top: 5px;
+  display: none;
+}
+
+.field input.erro ~ .field-hint {
+  display: block;
 }
 
 @keyframes glowPulse {
   0%   { box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.15); }
-  50%  { box-shadow: 0 0 0 6px rgba(124, 106, 247, 0.35); }
+  50%  { box-shadow: 0 0 0 7px rgba(124, 106, 247, 0.28); }
   100% { box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.15); }
+}
+
+@keyframes errorPulse {
+  0%   { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
+  50%  { box-shadow: 0 0 0 7px rgba(248, 113, 113, 0.25); }
+  100% { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
 }
 
 .field input:focus {
@@ -92,15 +137,8 @@
   animation: glowPulse 1.5s ease-in-out infinite;
 }
 
-@keyframes errorPulse {
-  0%   { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15); }
-  50%  { box-shadow: 0 0 0 6px rgba(248, 113, 113, 0.35); }
-  100% { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15); }
-}
-
 .field input.erro {
   border-color: var(--error);
-  animation: errorPulse 1.5s ease-in-out infinite;
 }
 
 .field input.erro:focus {
@@ -108,6 +146,7 @@
   animation: errorPulse 1.5s ease-in-out infinite;
 }
 
+/* ── Tooltip ── */
 .input-tooltip {
   position: relative;
 }
@@ -132,40 +171,91 @@
   display: block;
 }
 
+/* ── Ações ── */
 .form-actions {
   display: flex;
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 1rem;
 }
 
+/* Botão Voltar */
 .btn-back {
-  background: var(--error);
   width: 100%;
-  padding: 8px;
+  padding: 12px;
+  background: transparent;
+  color: #9090c0;
   font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1.5px solid #2e2e48;
   border-radius: 10px;
   cursor: pointer;
-  color: #fff;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.btn-back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124, 106, 247, 0.15) 0%, rgba(41, 121, 255, 0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
 .btn-back:hover {
-  opacity: 0.85;
+  border-color: #7c6af7;
+  color: #c4baff;
+  box-shadow: 0 0 12px rgba(124, 106, 247, 0.15);
 }
 
+.btn-back:hover::after {
+  opacity: 1;
+}
+
+.btn-back span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Botão Register */
 .btn-register {
-  background: var(--success);
   width: 100%;
-  padding: 8px;
+  padding: 12px;
+  background: linear-gradient(135deg, #7c6af7 0%, #2979ff 100%);
+  color: #fff;
   font-family: 'Syne', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  color: #000;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: box-shadow 0.35s ease;
+}
+
+.btn-register::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #2979ff 0%, #a855f7 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.btn-register:hover::after {
+  opacity: 1;
 }
 
 .btn-register:hover {
-  opacity: 0.85;
+  box-shadow: 0 0 22px rgba(41, 121, 255, 0.4), 0 0 8px rgba(124, 106, 247, 0.35);
+}
+
+.btn-register span {
+  position: relative;
+  z-index: 1;
 }

@@ -7,16 +7,16 @@ function Register() {
   const navigate = useNavigate()
   const captchaRef = useRef(null)
 
-  const [name, setName]       = useState('')
-  const [user, setUser]       = useState('')
-  const [pass, setPass]       = useState('')
+  const [name, setName]     = useState('')
+  const [user, setUser]     = useState('')
+  const [pass, setPass]     = useState('')
   const [captchaToken, setCaptchaToken] = useState('')
 
   const [nameErro, setNameErro] = useState(false)
   const [userErro, setUserErro] = useState(false)
   const [passErro, setPassErro] = useState(false)
 
-  const [erros, setErros]   = useState([])
+  const [erros, setErros]     = useState([])
   const [tipoMsg, setTipoMsg] = useState('')
 
   async function handleRegister() {
@@ -93,7 +93,7 @@ function Register() {
       <div className="rContainer">
 
         <h1 className="rHeading">Bem vindo ao Register!</h1>
-        <p className="rSubHeading">Cadastre-se Aqui</p>
+        <p className="rSubHeading">Cadastre-se aqui</p>
 
         {erros.length > 0 && (
           <ul className={`msg ${tipoMsg}`}>
@@ -108,11 +108,12 @@ function Register() {
           <input
             type="text"
             id="fullname"
-            placeholder="Nome Completo"
+            placeholder="Digite seu nome completo"
             className={nameErro ? 'erro' : ''}
             value={name}
             onChange={e => setName(e.target.value)}
           />
+          <span className="field-hint">Preencha o nome</span>
         </div>
 
         <div className="field">
@@ -121,13 +122,14 @@ function Register() {
             <input
               type="text"
               id="username"
-              placeholder="Username"
+              placeholder="Digite seu usuário"
               className={userErro ? 'erro' : ''}
               value={user}
               onChange={e => setUser(e.target.value)}
             />
             <div className="tooltip">Mínimo 4 caracteres</div>
           </div>
+          <span className="field-hint">Mínimo 4 caracteres</span>
         </div>
 
         <div className="field">
@@ -143,6 +145,7 @@ function Register() {
             />
             <div className="tooltip">Mínimo 8 caracteres</div>
           </div>
+          <span className="field-hint">Mínimo 8 caracteres</span>
         </div>
 
         <HCaptcha
@@ -154,8 +157,12 @@ function Register() {
         />
 
         <div className="form-actions">
-          <button className="btn-back" onClick={() => navigate('/')}>← Back</button>
-          <button className="btn-register" onClick={handleRegister}>Register →</button>
+          <button className="btn-back" onClick={() => navigate('/')}>
+            <span>← Voltar</span>
+          </button>
+          <button className="btn-register" onClick={handleRegister}>
+            <span>Criar conta →</span>
+          </button>
         </div>
 
       </div>
