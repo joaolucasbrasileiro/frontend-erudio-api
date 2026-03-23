@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem 0;
 }
 
 .rContainer {
@@ -35,7 +36,7 @@
   line-height: 1.5;
 }
 
-/* ── Mensagem de erro/sucesso ── */
+/* ── Mensagens ── */
 .msg {
   display: flex;
   align-items: flex-start;
@@ -103,55 +104,85 @@
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
 }
 
-.field input::placeholder {
+.field input::placeholder { color: #7070a0; }
+
+.field input.valido {
+  border-color: rgba(74, 222, 128, 0.5);
+}
+
+/* ── Wrapper senha ── */
+.reg-pass-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.reg-pass-wrapper input {
+  width: 100%;
+  background: #1a1a28;
+  border: 1px solid #2e2e48;
+  border-radius: 10px;
+  padding: 12px 44px 12px 15px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.reg-pass-wrapper input::placeholder { color: #7070a0; }
+
+.reg-pass-wrapper input.valido {
+  border-color: rgba(74, 222, 128, 0.5);
+}
+
+.reg-pass-wrapper input[type="password"]::-ms-reveal,
+.reg-pass-wrapper input[type="password"]::-ms-clear { display: none; }
+
+.reg-toggle-pass {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
   color: #7070a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+  line-height: 0;
 }
 
-.field-hint {
-  font-size: 11px;
-  color: var(--error);
-  margin-top: 5px;
-  display: none;
-}
-
-.field input.erro ~ .field-hint {
-  display: block;
-}
-
-@keyframes glowPulse {
-  0%   { box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.15); }
-  50%  { box-shadow: 0 0 0 7px rgba(124, 106, 247, 0.28); }
-  100% { box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.15); }
-}
-
-@keyframes errorPulse {
-  0%   { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
-  50%  { box-shadow: 0 0 0 7px rgba(248, 113, 113, 0.25); }
-  100% { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
-}
-
-.field input:focus {
-  border-color: var(--accent);
-  animation: glowPulse 1.5s ease-in-out infinite;
-}
-
-.field input.erro {
-  border-color: var(--error);
-}
-
-.field input.erro:focus {
-  border-color: var(--error);
-  animation: errorPulse 1.5s ease-in-out infinite;
-}
+.reg-toggle-pass:hover { color: var(--text); }
 
 /* ── Tooltip ── */
-.input-tooltip {
+.reg-tooltip-wrapper {
   position: relative;
 }
 
-.tooltip {
+.reg-tooltip-wrapper input {
+  width: 100%;
+  background: #1a1a28;
+  border: 1px solid #2e2e48;
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.reg-tooltip-wrapper input::placeholder { color: #7070a0; }
+
+.reg-tooltip {
   display: none;
   position: absolute;
   bottom: 110%;
@@ -167,7 +198,95 @@
   z-index: 10;
 }
 
-.input-tooltip input:focus + .tooltip {
+.reg-tooltip-wrapper input:focus + .reg-tooltip { display: block; }
+
+/* ── Indicador de força da senha ── */
+.senha-forca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.forca-bar {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.forca-bar span {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: #2e2e48;
+  transition: background 0.3s;
+}
+
+.forca-bar.fraca span:nth-child(1) { background: var(--error); }
+.forca-bar.media span:nth-child(1),
+.forca-bar.media span:nth-child(2) { background: #f59e0b; }
+.forca-bar.forte span:nth-child(1),
+.forca-bar.forte span:nth-child(2),
+.forca-bar.forte span:nth-child(3) { background: var(--success); }
+
+.forca-label {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.forca-label.fraca { color: var(--error); }
+.forca-label.media { color: #f59e0b; }
+.forca-label.forte { color: var(--success); }
+
+/* ── Foco e erro ── */
+@keyframes glowPulse {
+  0%   { box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.15); }
+  50%  { box-shadow: 0 0 0 7px rgba(124, 106, 247, 0.28); }
+  100% { box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.15); }
+}
+
+@keyframes errorPulse {
+  0%   { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
+  50%  { box-shadow: 0 0 0 7px rgba(248, 113, 113, 0.25); }
+  100% { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
+}
+
+.field input:focus,
+.reg-pass-wrapper input:focus,
+.reg-tooltip-wrapper input:focus {
+  border-color: var(--accent);
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+.field input.erro,
+.reg-pass-wrapper input.erro,
+.reg-tooltip-wrapper input.erro {
+  border-color: var(--error);
+}
+
+.field input.erro:focus,
+.reg-pass-wrapper input.erro:focus,
+.reg-tooltip-wrapper input.erro:focus {
+  border-color: var(--error);
+  animation: errorPulse 1.5s ease-in-out infinite;
+}
+
+/* ── Field hint e ok ── */
+.field-hint {
+  font-size: 11px;
+  color: var(--error);
+  margin-top: 5px;
+  display: none;
+}
+
+.field input.erro ~ .field-hint { display: block; }
+.field:has(.reg-pass-wrapper input.erro) .field-hint { display: block; }
+.field:has(.reg-tooltip-wrapper input.erro) .field-hint { display: block; }
+
+.field-ok {
+  font-size: 11px;
+  color: var(--success);
+  margin-top: 5px;
   display: block;
 }
 
@@ -175,7 +294,7 @@
 .form-actions {
   display: flex;
   gap: 10px;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
 }
 
 /* Botão Voltar */
@@ -206,21 +325,19 @@
 }
 
 .btn-back:hover {
-  border-color: #7c6af7;
+  border-color: var(--accent);
   color: #c4baff;
   box-shadow: 0 0 12px rgba(124, 106, 247, 0.15);
 }
 
-.btn-back:hover::after {
-  opacity: 1;
-}
+.btn-back:hover::after { opacity: 1; }
 
 .btn-back span {
   position: relative;
   z-index: 1;
 }
 
-/* Botão Register */
+/* Botão Criar conta */
 .btn-register {
   width: 100%;
   padding: 12px;
@@ -247,9 +364,7 @@
   transition: opacity 0.35s ease;
 }
 
-.btn-register:hover::after {
-  opacity: 1;
-}
+.btn-register:hover::after { opacity: 1; }
 
 .btn-register:hover {
   box-shadow: 0 0 22px rgba(41, 121, 255, 0.4), 0 0 8px rgba(124, 106, 247, 0.35);

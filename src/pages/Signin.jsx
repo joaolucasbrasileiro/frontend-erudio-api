@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import './Signin.css'
 
 const API_URL = import.meta.env.VITE_API_URL
 
 function Signin() {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
@@ -14,6 +15,14 @@ function Signin() {
   const [tipoMsg, setTipoMsg] = useState('')
   const [userErro, setUserErro] = useState(false)
   const [passErro, setPassErro] = useState(false)
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    if (params.get('confirmed') === 'true') {
+      setErros(['Conta confirmada com sucesso! Faça o login.'])
+      setTipoMsg('success')
+    }
+  }, [])
 
   async function handleLogin() {
     setUserErro(false)
@@ -131,6 +140,12 @@ function Signin() {
             </button>
           </div>
           <span className="field-hint">Preencha a senha</span>
+        </div>
+
+        <div className="forgot-link-wrapper">
+          <button className="forgot-link" onClick={() => navigate('/forgot-password')}>
+            Esqueci minha senha
+          </button>
         </div>
 
         <button className="btn" onClick={handleLogin}>

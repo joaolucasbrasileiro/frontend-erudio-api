@@ -3,9 +3,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem 0;
 }
 
-.container {
+.auth-container {
   width: 420px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -20,9 +21,27 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Botão voltar ── */
+.back-btn {
+  background: none;
+  border: none;
+  color: #7070a0;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.back-btn:hover { color: var(--text); }
+
 .heading {
   font-family: 'Syne', sans-serif;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 6px;
@@ -31,8 +50,12 @@
 .subheading {
   font-size: 13.5px;
   color: var(--muted);
-  margin-bottom: 2.2rem;
+  margin-bottom: 2rem;
   line-height: 1.5;
+}
+
+.subheading strong {
+  color: var(--label);
 }
 
 /* ── Mensagens ── */
@@ -106,18 +129,18 @@
   box-sizing: border-box;
 }
 
-.field input::placeholder {
-  color: #7070a0;
-}
+.field input::placeholder { color: #7070a0; }
+
+.field input.valido { border-color: rgba(74, 222, 128, 0.5); }
 
 /* ── Wrapper senha ── */
-.signin-pass-wrapper {
+.flow-pass-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.signin-pass-wrapper input {
+.flow-pass-wrapper input {
   width: 100%;
   background: #1a1a28;
   border: 1px solid #2e2e48;
@@ -131,16 +154,13 @@
   box-sizing: border-box;
 }
 
-.signin-pass-wrapper input::placeholder {
-  color: #7070a0;
-}
+.flow-pass-wrapper input::placeholder { color: #7070a0; }
+.flow-pass-wrapper input.valido { border-color: rgba(74, 222, 128, 0.5); }
 
-.signin-pass-wrapper input[type="password"]::-ms-reveal,
-.signin-pass-wrapper input[type="password"]::-ms-clear {
-  display: none;
-}
+.flow-pass-wrapper input[type="password"]::-ms-reveal,
+.flow-pass-wrapper input[type="password"]::-ms-clear { display: none; }
 
-.signin-toggle-pass {
+.flow-toggle-pass {
   position: absolute;
   right: 12px;
   background: none;
@@ -149,16 +169,81 @@
   color: #7070a0;
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 4px;
   border-radius: 4px;
   transition: color 0.2s;
   line-height: 0;
 }
 
-.signin-toggle-pass:hover {
-  color: var(--text);
+.flow-toggle-pass:hover { color: var(--text); }
+
+/* ── Inputs de código ── */
+.code-inputs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
+
+.code-digit {
+  width: 52px;
+  height: 56px;
+  background: #1a1a28;
+  border: 1px solid #2e2e48;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: 'Syne', sans-serif;
+  box-sizing: border-box;
+}
+
+.code-digit:focus {
+  border-color: var(--accent);
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+.code-digit.erro {
+  border-color: var(--error);
+  animation: errorPulse 1.5s ease-in-out infinite;
+}
+
+/* ── Indicador força senha ── */
+.senha-forca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.forca-bar {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.forca-bar span {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: #2e2e48;
+  transition: background 0.3s;
+}
+
+.forca-bar.fraca span:nth-child(1) { background: var(--error); }
+.forca-bar.media span:nth-child(1),
+.forca-bar.media span:nth-child(2) { background: #f59e0b; }
+.forca-bar.forte span:nth-child(1),
+.forca-bar.forte span:nth-child(2),
+.forca-bar.forte span:nth-child(3) { background: var(--success); }
+
+.forca-label { font-size: 11px; white-space: nowrap; }
+.forca-label.fraca { color: var(--error); }
+.forca-label.media { color: #f59e0b; }
+.forca-label.forte { color: var(--success); }
 
 /* ── Foco e erro ── */
 @keyframes glowPulse {
@@ -174,23 +259,23 @@
 }
 
 .field input:focus,
-.signin-pass-wrapper input:focus {
+.flow-pass-wrapper input:focus {
   border-color: var(--accent);
   animation: glowPulse 1.5s ease-in-out infinite;
 }
 
 .field input.erro,
-.signin-pass-wrapper input.erro {
+.flow-pass-wrapper input.erro {
   border-color: var(--error);
 }
 
 .field input.erro:focus,
-.signin-pass-wrapper input.erro:focus {
+.flow-pass-wrapper input.erro:focus {
   border-color: var(--error);
   animation: errorPulse 1.5s ease-in-out infinite;
 }
 
-/* ── Field hint ── */
+/* ── Field hint e ok ── */
 .field-hint {
   font-size: 11px;
   color: var(--error);
@@ -198,35 +283,14 @@
   display: none;
 }
 
-.field input.erro ~ .field-hint {
+.field input.erro ~ .field-hint { display: block; }
+.field:has(.flow-pass-wrapper input.erro) .field-hint { display: block; }
+
+.field-ok {
+  font-size: 11px;
+  color: var(--success);
+  margin-top: 5px;
   display: block;
-}
-
-.field:has(.signin-pass-wrapper input.erro) .field-hint {
-  display: block;
-}
-
-/* ── Link esqueci minha senha ── */
-.forgot-link-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -0.6rem;
-  margin-bottom: 1.2rem;
-}
-
-.forgot-link {
-  background: none;
-  border: none;
-  color: #7070a0;
-  font-size: 12px;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.2s;
-}
-
-.forgot-link:hover {
-  color: var(--accent);
 }
 
 /* ── Botão principal ── */
@@ -241,11 +305,15 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  margin-top: 0.3rem;
   position: relative;
   overflow: hidden;
   isolation: isolate;
   transition: box-shadow 0.35s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .btn::after {
@@ -257,13 +325,53 @@
   transition: opacity 0.35s ease;
 }
 
-.btn:hover::after { opacity: 1; }
+.btn:not(:disabled):hover::after { opacity: 1; }
 
-.btn:hover {
+.btn:not(:disabled):hover {
   box-shadow: 0 0 22px rgba(41, 121, 255, 0.4), 0 0 8px rgba(124, 106, 247, 0.35);
 }
 
 .btn span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Botão secundário ── */
+.btn-secondary {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  color: #9090c0;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1.5px solid #2e2e48;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.btn-secondary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124, 106, 247, 0.15) 0%, rgba(41, 121, 255, 0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: #c4baff;
+  box-shadow: 0 0 12px rgba(124, 106, 247, 0.15);
+}
+
+.btn-secondary:hover::after { opacity: 1; }
+
+.btn-secondary span {
   position: relative;
   z-index: 1;
 }
@@ -288,44 +396,9 @@
   white-space: nowrap;
 }
 
-/* ── Botão secundário ── */
-.btn-register-link {
-  width: 100%;
-  padding: 11px;
-  background: transparent;
-  color: #9090c0;
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  border: 1.5px solid #2e2e48;
-  border-radius: 10px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  transition: border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+/* ── Form actions ── */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.5rem;
 }
-
-.btn-register-link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(124, 106, 247, 0.15) 0%, rgba(41, 121, 255, 0.15) 100%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.btn-register-link:hover {
-  border-color: var(--accent);
-  color: #c4baff;
-  box-shadow: 0 0 12px rgba(124, 106, 247, 0.15);
-}
-
-.btn-register-link:hover::after { opacity: 1; }
-
-.btn-register-link span {
-  position: relative;
-  z-index: 1;
-}
-
-.qRegister { display: none; }
