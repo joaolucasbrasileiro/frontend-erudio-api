@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Dashboard.css'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function Dashboard() {
   const navigate = useNavigate()
   const username = localStorage.getItem('username')
@@ -26,7 +28,7 @@ function Dashboard() {
   }, [])
 
   async function carregarUsuario() {
-    const response = await fetch('http://localhost:8080/auth/user/' + username, {
+    const response = await fetch(`${API_URL}/auth/user/` + username, {
       method: 'GET',
       headers: { 'Authorization': 'Bearer ' + token }
     })
@@ -57,7 +59,7 @@ function Dashboard() {
       return
     }
 
-    const response = await fetch('http://localhost:8080/auth/updateUser', {
+    const response = await fetch(`${API_URL}/auth/updateUser`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +89,7 @@ function Dashboard() {
       return
     }
 
-    const response = await fetch('http://localhost:8080/auth/updateUser', {
+    const response = await fetch(`${API_URL}/auth/updateUser`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
