@@ -1,0 +1,208 @@
+/* ============================================================
+   adhd-mode.css  —  adicione no final do seu index.css
+   Ativado automaticamente via data-a11y-adhd="true" no <html>
+   ============================================================ */
+
+/* ──────────────────────────────────────────
+   1. ANIMAÇÕES — Remove todas
+   Nielsen #8: Estética e design minimalista
+   TDAH: animações são a principal fonte de distração
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] *,
+[data-a11y-adhd="true"] *::before,
+[data-a11y-adhd="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Exceção: o botão de acessibilidade em si mantém a transição do painel */
+[data-a11y-adhd="true"] .a11y-panel {
+  transition-duration: 0.22s !important;
+}
+
+/* ──────────────────────────────────────────
+   2. FOCO — Destaque nítido e estável
+   Nielsen #1: Visibilidade do status
+   TDAH: saber "onde estou na tela" é crítico
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] *:focus,
+[data-a11y-adhd="true"] *:focus-visible {
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 3px !important;
+  /* Remove os glowPulse que piscam — distração pura para TDAH */
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* ──────────────────────────────────────────
+   3. TIPOGRAFIA — Aumenta legibilidade
+   Nielsen #6: Reconhecimento em vez de lembrança
+   TDAH: espaçamento reduz esforço cognitivo
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] body {
+  font-size: 16px !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.012em !important;
+}
+
+[data-a11y-adhd="true"] p,
+[data-a11y-adhd="true"] li,
+[data-a11y-adhd="true"] label,
+[data-a11y-adhd="true"] span {
+  line-height: 1.75 !important;
+}
+
+[data-a11y-adhd="true"] p + p {
+  margin-top: 1em !important;
+}
+
+/* Limita largura de leitura (ideal para TDAH: ~65 caracteres) */
+[data-a11y-adhd="true"] .main-content p,
+[data-a11y-adhd="true"] .manage-card p {
+  max-width: 60ch !important;
+}
+
+/* ──────────────────────────────────────────
+   4. FORMULÁRIOS — Campos maiores e mais claros
+   Nielsen #5: Prevenção de erros
+   TDAH: campos pequenos aumentam erros de digitação
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] .field label {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--label) !important;
+  margin-bottom: 10px !important;
+  letter-spacing: 0 !important;
+}
+
+[data-a11y-adhd="true"] .field input,
+[data-a11y-adhd="true"] .signin-pass-wrapper input,
+[data-a11y-adhd="true"] .reg-pass-wrapper input,
+[data-a11y-adhd="true"] .flow-pass-wrapper input,
+[data-a11y-adhd="true"] .reg-tooltip-wrapper input {
+  font-size: 15px !important;
+  padding: 14px 16px !important;
+  line-height: 1.5 !important;
+  border-color: var(--border-hv) !important;
+}
+
+/* Dígitos do código de validação maiores */
+[data-a11y-adhd="true"] .code-digit {
+  font-size: 26px !important;
+  width: 56px !important;
+  height: 62px !important;
+}
+
+/* ──────────────────────────────────────────
+   5. BOTÕES — Tamanho mínimo acessível
+   Nielsen #4: Consistência e padrões
+   TDAH: alvos clicáveis pequenos causam frustração
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] .btn,
+[data-a11y-adhd="true"] .btn-register,
+[data-a11y-adhd="true"] .btn-register-link,
+[data-a11y-adhd="true"] .btn-secondary,
+[data-a11y-adhd="true"] .btn-back,
+[data-a11y-adhd="true"] .btn-cancel,
+[data-a11y-adhd="true"] .btn-save,
+[data-a11y-adhd="true"] .btn-open {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  font-size: 15px !important;
+  /* Remove gradiente pulsante dos hovers */
+  background-image: none !important;
+}
+
+[data-a11y-adhd="true"] .btn,
+[data-a11y-adhd="true"] .btn-register {
+  background: var(--accent) !important;
+}
+
+[data-a11y-adhd="true"] .btn:hover,
+[data-a11y-adhd="true"] .btn-register:hover {
+  background: var(--accent-hv) !important;
+  box-shadow: none !important;
+}
+
+/* Remove o pseudo-elemento ::after que cria o efeito de gradiente invertido */
+[data-a11y-adhd="true"] .btn::after,
+[data-a11y-adhd="true"] .btn-register::after,
+[data-a11y-adhd="true"] .btn-register-link::after,
+[data-a11y-adhd="true"] .btn-secondary::after,
+[data-a11y-adhd="true"] .btn-back::after,
+[data-a11y-adhd="true"] .btn-cancel::after,
+[data-a11y-adhd="true"] .btn-save::after,
+[data-a11y-adhd="true"] .btn-open::after {
+  display: none !important;
+}
+
+/* ──────────────────────────────────────────
+   6. NAVBAR — Simplifica o header
+   Nielsen #8: Design minimalista
+   TDAH: informações desnecessárias disputam atenção
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] .navbar {
+  border-bottom: 2px solid var(--accent) !important;
+  box-shadow: none !important;
+}
+
+/* ──────────────────────────────────────────
+   7. MENSAGENS DE ERRO/SUCESSO — Mais visíveis
+   Nielsen #9: Ajudar usuários a reconhecer erros
+   TDAH: mensagens discretas são ignoradas
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] .msg {
+  font-size: 14px !important;
+  padding: 14px 16px !important;
+  border-left-width: 4px !important;
+  /* Sem shake — a animação distrai e causa ansiedade */
+  animation: none !important;
+}
+
+/* ──────────────────────────────────────────
+   8. INDICADOR DE MODO ATIVO
+   Nielsen #1: Visibilidade do status do sistema
+   O usuário sabe que o modo está ligado
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] body::before {
+  content: "Modo TDAH ativo — distrações reduzidas";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  background: rgba(124, 106, 247, 0.9);
+  color: #fff;
+  text-align: center;
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 5px;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+/* ──────────────────────────────────────────
+   9. CARDS DO DASHBOARD — Mais espaço e foco
+   Nielsen #8: Minimalismo
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] .manage-card {
+  padding: 22px !important;
+  border-color: var(--border-hv) !important;
+}
+
+[data-a11y-adhd="true"] .manage-section {
+  box-shadow: none !important;
+  border-color: var(--border-hv) !important;
+}
+
+/* ──────────────────────────────────────────
+   10. INDICADOR DE FORÇA DE SENHA — Sem animação
+   Nielsen #8: Sem elementos desnecessários em movimento
+   ────────────────────────────────────────── */
+[data-a11y-adhd="true"] .forca-bar span {
+  transition: none !important;
+}
