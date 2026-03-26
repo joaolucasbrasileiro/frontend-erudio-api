@@ -39,8 +39,8 @@
 /* ── Mensagens ── */
 .msg {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  flex-direction: column;
+  gap: 1px;
   padding: 10px 12px;
   border-radius: 10px;
   font-size: 13px;
@@ -49,19 +49,40 @@
   line-height: 1.4;
 }
 
+.msg li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(248, 113, 113, 0.1);
+}
+
+.msg.success li {
+  border-bottom-color: rgba(74, 222, 128, 0.1);
+}
+
+.msg li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.msg li::before {
+  content: '⚠';
+  flex-shrink: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.msg.success li::before {
+  content: '✓';
+}
+
 .msg.erro {
   background: rgba(248, 113, 113, 0.07);
   border: 1px solid rgba(248, 113, 113, 0.22);
   border-left: 3px solid var(--error);
   color: var(--error);
   animation: shake 0.4s ease;
-}
-
-.msg.erro::before {
-  content: '⚠';
-  font-size: 14px;
-  flex-shrink: 0;
-  margin-top: 1px;
 }
 
 .msg.success {
